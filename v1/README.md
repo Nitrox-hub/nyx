@@ -1,51 +1,65 @@
-# Nyx V1 — Terminal Chat MVP
+# Nyx V1 — Local AI Companion
 
-The first version of Nyx: a terminal-based AI chat companion with personality, powered by a local LLM.
+Primeira versao da Nyx: chat local via browser com LLM rodando em KoboldCpp.
 
-## What it does
+## Stack
 
-- Text chat through the terminal
-- Personality defined via character card
-- Rolling conversation memory (summarized context window)
-- Static PNG avatar display
-- Fully local — no internet required after setup
+- **Backend**: Node.js (zero dependencias externas — HTTP puro)
+- **Frontend**: HTML + CSS + JS vanilla
+- **LLM**: Qwen3 8B via KoboldCpp (Vulkan, GPU AMD)
+- **Interface**: Browser (localhost:3000)
 
-## Requirements
+## Arquitetura
 
-- [KoboldCpp](https://github.com/LostRuins/koboldcpp) installed and running
-- A GGUF model file (tested with Qwen3 8B)
-- Python 3.10+
+```
+Browser (localhost:3000)
+   |
+   v
+server.js (Node.js HTTP)
+   |
+   v
+KoboldCpp API (localhost:5001)
+   |
+   v
+Qwen3 8B (GPU local)
+```
 
-## Setup
+## Arquivos
 
-1. **Start KoboldCpp** with your model:
-   ```bash
-   koboldcpp --model path/to/qwen3-8b.gguf --port 5001
-   ```
+| Arquivo | Funcao |
+|---------|--------|
+| `server.js` | Servidor HTTP, proxy pro KoboldCpp, gerenciamento de sessao e resumos |
+| `character.json` | Personalidade completa da Nyx (lore, prompts, dialogos, emocoes) |
+| `package.json` | Metadados do projeto Node.js |
+| `.env.example` | Exemplo de variaveis de ambiente (URL do KoboldCpp) |
+| `public/index.html` | Interface HTML |
+| `public/style.css` | Dark gothic theme (paleta vermelho/preto) |
+| `public/app.js` | Frontend JS (chat, avatar, emocoes) |
+| `public/sprites/` | Sprites pixel art da Nyx (idle, happy, thinking) |
+| `data/` | Dados persistentes em runtime (summaries.json) |
 
-2. **Configure Nyx** — edit `config.json` with your KoboldCpp endpoint and character card settings.
+## Features V1
 
-3. **Run:**
-   ```bash
-   python nyx.py
-   ```
+- Chat com personalidade completa (Nyx, a Viuva Negra — mordoma vampira de Dracula)
+- Lorebook dinamico (ativa entradas relevantes baseado no input)
+- Deteccao de emocao por keywords (muda sprite: idle/happy/thinking)
+- Rolling summaries automaticos (a cada 10 pares de mensagens)
+- Sessao persistente com historico limitado (20 msgs)
+- Sistema de novo-sessao com summary antes de limpar
+- Interface dark gothic com sidebar + avatar
 
-## Character Card
+## Como Rodar
 
-Nyx's personality is defined in `character_card.json`. Key traits:
+1. Tenha o KoboldCpp rodando com o modelo Qwen3 8B
+2. Copie `.env.example` para `.env` e ajuste a URL se necessario
+3. Execute:
+```bash
+npm start
+```
+4. Acesse http://localhost:3000
 
-- Curious and playful
-- Slightly sarcastic but caring
-- Interested in tech, games, and creative projects
-- Remembers context from the current session via rolling summaries
+## Lore
 
-## Limitations (why V2 exists)
+Nyx e uma assassina vampira, uma dos Doze Mordomos do Conde Dracula. Sua personalidade mistura elegancia sombria com sarcasmo afiado. O usuario (Nitrox) e outro mordomo — o tesoureiro que domina Oromancia e Pratomancia.
 
-- Terminal only — no GUI, no overlay
-- Static avatar — no animations or expressions
-- No voice — text input/output only
-- No screen awareness — can't see what you're doing
-- Memory resets between sessions — no long-term persistence
-- Single LLM backend — KoboldCpp only
-
-All of these are addressed in [V2](../docs/architecture.md).
+Ver `character.json` para o lore completo.

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nyx</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>⬥ Nyx</h1>
+        <div class="subtitle">v1 — local AI companion</div>
+      </div>
+
+      <div class="avatar-container">
+        <img id="avatar" src="/sprites/idle.png" alt="Nyx">
+      </div>
+
+      <div class="status-info">
+        <div><span class="status-dot offline"></span><span id="status-text">Conectando...</span></div>
+      </div>
+
+      <div class="sidebar-actions">
+        <button class="btn-new-session" id="new-session-btn">Nova Sessão</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="messages">
+        <div class="welcome">
+          <h2>⬥ Nyx</h2>
+          <p>Digite algo para começar...</p>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <div class="input-row">
+          <textarea id="message-input" placeholder="Fala comigo..." rows="1"></textarea>
+          <button class="btn-send" id="send-btn">Enviar</button>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
