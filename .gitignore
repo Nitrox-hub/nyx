@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Models (too large for git)
+*.gguf
+*.bin
+*.safetensors
+models/
+
+# Memory database (personal data)
+memory/*.db
+memory/*.sqlite
+memory/episodes/
+memory/facts/
+memory/personality/
+memory/knowledge/
+!memory/.gitkeep
+!memory/README.md
+
+# Obsidian workspace (personal config)
+memory/.obsidian/workspace.json
+memory/.obsidian/workspace-mobile.json
+
+# Build
+dist/
+build/
+*.exe
+
+# Env
+.env
+.env.local
+
+# Logs
+*.log
+logs/
